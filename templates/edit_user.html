@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование пользователя</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script>
+        function togglePasswordInput() {
+            const checkbox = document.getElementById('change_password');
+            const passwordInput = document.getElementById('new_password');
+            passwordInput.disabled = !checkbox.checked;
+        }
+        function toggleFullnameInput() {
+            const checkbox = document.getElementById('change_fullname');
+            const fullnameInput = document.getElementById('new_fullname');
+            fullnameInput.disabled = !checkbox.checked;
+        }
+        function togglePositionInput() {
+            const checkbox = document.getElementById('change_position');
+            const positionInput = document.getElementById('new_position');
+            positionInput.disabled = !checkbox.checked;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Редактирование пользователя: {{ user['fullname'] }}</h1>
+        <form method="POST">
+            <label for="role">Роль:</label>
+            <select name="role" required>
+                <option value="admin" {% if user['role'] == 'admin' %}selected{% endif %}>Администратор</option>
+                <option value="project_manager" {% if user['role'] == 'project_manager' %}selected{% endif %}>Руководитель проекта</option>
+                <option value="specialist" {% if user['role'] == 'specialist' %}selected{% endif %}>Специалист</option>
+            </select>
+
+            <label>
+                <input type="checkbox" id="change_fullname" name="change_fullname" onclick="toggleFullnameInput()">
+                Изменить ФИО
+            </label>
+
+            <label for="new_fullname">Новое ФИО:</label>
+            <input type="text" id="new_fullname" name="new_fullname" value="{{ user['fullname'] }}" disabled>
+
+            <label>
+                <input type="checkbox" id="change_position" name="change_position" onclick="togglePositionInput()">
+                Изменить должность
+            </label>
+
+            <label for="new_position">Новая должность:</label>
+            <input type="text" id="new_position" name="new_position" value="{{ user['position'] }}" disabled>
+
+            <label>
+                <input type="checkbox" id="change_password" name="change_password" onclick="togglePasswordInput()">
+                Изменить пароль
+            </label>
+
+            <label for="new_password">Новый пароль:</label>
+            <input type="password" id="new_password" name="new_password" disabled>
+
+            <button type="submit">Сохранить изменения</button>
+        </form>
+        <a href="/manage_users">Назад к управлению пользователями</a>
+        <a href="/home">В главное меню</a>
+        <a href="/logout">Выйти</a>
+    </div>
+</body>
+</html>

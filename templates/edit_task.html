@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование задачи</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Редактирование задачи № {{ task['id'] }}: {{ task['title'] }}</h1>
+        <form method="POST">
+            <label for="title">Тема:</label>
+            <input type="text" name="title" value="{{ task['title'] }}" required>
+
+            <label for="description">Описание:</label>
+            <input type="text" name="description" value="{{ task['description'] }}" required>
+
+            <label for="status_id">Статус:</label>
+            <select name="status_id" required>
+                {% for status in statuses %}
+                <option value="{{ status['id'] }}" {% if status['id'] == task['status_id'] %}selected{% endif %}>{{ status['name'] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="specialist_id" {% if session['role'] == 'specialist' %}hidden{% endif %}>Специалист:</label>
+            <select name="specialist_id" {% if session['role'] == 'specialist' %}hidden{% endif %}>
+                <option value="">Нет</option>
+                {% for user in users %}
+                <option value="{{ user['id'] }}" {% if user['id'] == task['specialist_id'] %}selected{% endif %}>{{ user['fullname'] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="project_id" {% if session['role'] == 'specialist' %}hidden{% endif %}>Проект:</label>
+            <select name="project_id" {% if session['role'] == 'specialist' %}hidden{% endif %} required>
+                {% for project in projects %}
+                <option value="{{ project['id'] }}" {% if project['id'] == task['project_id'] %}selected{% endif %}>{{ project['name'] }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Сохранить изменения</button>
+        </form>
+        <a href="/manage_tasks">Назад к управлению задачами</a>
+        <a href="/home">В главное меню</a>
+        <a href="/logout">Выйти</a>
+    </div>
+</body>
+</html>

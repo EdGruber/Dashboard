@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задача</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Задача №{{ task['id'] }}: {{ task['title'] }}</h1>
+        <p><strong>Описание:</strong> {{ task['description'] }}</p>
+        <p><strong>Специалист:</strong> 
+            {% for user in users %}
+                {% if user['id'] == task['specialist_id'] %}
+                    {{ user['fullname'] }}
+                {% endif %}
+            {% endfor %}
+        </p>
+        <p><strong>Статус:</strong> 
+            {% for status in statuses %}
+                {% if status['id'] == task['status_id'] %}
+                    {{ status['name'] }}
+                {% endif %}
+            {% endfor %}
+        </p>
+        <p><strong>Проект:</strong> 
+            {% for project in projects %}
+                {% if project['id'] == task['project_id'] %}
+                    {{ project['name'] }}
+                {% endif %}
+            {% endfor %}
+        </p>
+        <h2>Комментарии</h2>
+        <ul>
+            {% for comment in comments %}
+            <li>
+                <strong>{{ comment['author_name'] }} ({{ comment['author_position'] }}):</strong> {{ comment['comment_text'] }}
+            </li>
+            {% else %}
+            <p>Комментариев пока нет.</p>
+            {% endfor %}
+        </ul>
+
+        <h2>Добавить комментарий</h2>
+        <form method="POST">
+            <textarea name="comment" rows="4" cols="50" placeholder="Введите ваш комментарий" required></textarea>
+            <button type="submit">Добавить</button>
+        </form>
+
+        <a href="/manage_tasks">Назад к управлению задачами</a>
+        <a href="/home">В главное меню</a>
+        <a href="/logout">Выйти</a>
+    </div>
+</body>
+</html>

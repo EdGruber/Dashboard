@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="static/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+        
+        <p>Вы вошли как {{ fullname }} - {{ position }}</p>
+
+        {% if role == 'admin' %}
+            <h2>Доступные действия:</h2>
+            <ul>
+                <li><a href="/manage_users" class = "list">Управление пользователями</a></li>
+                <li><a href="/manage_tasks" class = "list">Управление задачами</a></li>
+                <li><a href="/manage_projects" class = "list">Управление проектами</a></li>
+            </ul>
+        {% elif role == 'project_manager' %}
+            <h2>Доступные действия</h2>
+            <ul>
+                <li><a href="/manage_tasks" class = "list">Управление задачами</a></li>
+                <li><a href="/manage_projects" class = "list">Управление проектами</a></li>
+            </ul>
+        {% elif role == 'specialist' %}
+            <h2>Доступные действия:</h2>
+            <ul>
+                <li><a href="/manage_tasks" class = "list">Управление задачами</a></li>
+            </ul>
+        {% else %}
+            <p>Неизвестная роль.</p>
+        {% endif %}
+
+        <a href="/logout">Выйти</a>
+    </div>
+</body>
+</html>

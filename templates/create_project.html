@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание проекта</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Создание проекта</h1>
+        <form method="POST">
+            <label for="name">Название проекта:</label>
+            <input type="text" name="name" required>
+
+            <label for="description">Описание:</label>
+            <textarea name="description" rows="4"></textarea>
+
+            <button type="submit">Создать</button>
+        </form>
+        <a href="/manage_projects">Назад к управлению проектами</a>
+        <a href="/home">В главное меню</a>
+        <a href="/logout">Выйти</a>
+    </div>
+</body>
+</html>
