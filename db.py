@@ -71,7 +71,7 @@ def init_db():
     # Добавление статусов по умолчанию
     statuses = ['открыта', 'в работе', 'решена', 'на согласовании']
     for status in statuses:
-        cursor.execute("INSERT INTO statuses (name) VALUES (%s) ON CONFLICT (name) DO NOTHING", (status))
+        cursor.execute("INSERT INTO statuses (name) VALUES (%s) ON CONFLICT (name) DO NOTHING", (status,))
 
     # Добавление администратора по умолчанию
     cursor.execute("SELECT COUNT(*) FROM users")
