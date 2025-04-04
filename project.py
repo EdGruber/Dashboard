@@ -7,10 +7,10 @@ from flask import session
 def get_db_connection():
     connection = psycopg2.connect(
         dbname="project_management_sk3k",
-        user="postgres",
+        user="postgresuser",
         password="gPnVMa1iiYlqhwNLFlH4pjrF7je2m6mp",
-        host="dpg-cvnvaifgi27c73bpf4b0-a",  
-        port="5432"       
+        host="dpg-cvnvaifgi27c73bpf4b0-a",
+        port="5432"
     )
     return connection
 
