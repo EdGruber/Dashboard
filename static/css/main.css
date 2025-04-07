@@ -2,6 +2,32 @@
     box-sizing: border-box;
 }
 
+nav {
+    background-color: #4cae4c;
+    border-bottom: 1px solid black;
+  }
+  
+  .crumbs ol {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .crumb {
+    display: inline-block;
+  }
+  
+  .crumb a {
+    position: relative;
+  }
+  
+  .crumb a::after {
+    content: ">";
+    position: absolute;
+    padding: 0 5px;
+    color: #ffffff;
+    font-size: 80%;
+  }
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
