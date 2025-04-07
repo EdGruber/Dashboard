@@ -8,7 +8,7 @@ def get_db_connection():
         dbname="project_management_sk3k",
         user="postgresuser",
         password="gPnVMa1iiYlqhwNLFlH4pjrF7je2m6mp",
-        host="dpg-cvnvaifgi27c73bpf4b0-a",  dbname="project_management_sk3k",
+        host="dpg-cvnvaifgi27c73bpf4b0-a",
         #dbname="project_management",
         #user="postgres",
         #password="eg",
