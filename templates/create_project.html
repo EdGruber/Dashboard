@@ -4,23 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Создание проекта</title>
-    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="../static/css/main.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Создание проекта</h1>
-        <form method="POST">
-            <label for="name">Название проекта:</label>
-            <input type="text" name="name" required>
+    <nav class="navbar">
+        <ul class="navbar-left">
+            <li class="navbarli">
+                <a href="{% if session.get('login') %}/home{% else %}#{% endif %}">
+                    <img src="../static/icons/home_icon.png" alt="Главное меню" class="navbar-icon">
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-right">
+            <li class="navbarli"><a href="/view_user">{{ session['login'] }}</a></li>
+            <li class="navbarli"><a href="/logout">Выйти</a></li>
+        </ul>
+    </nav>
 
-            <label for="description">Описание:</label>
-            <textarea name="description" rows="4"></textarea>
-
-            <button type="submit">Создать</button>
-        </form>
-        <a href="/manage_projects">Назад к управлению проектами</a>
-        <a href="/home">В главное меню</a>
-        <a href="/logout">Выйти</a>
+    <div class="breadcrumbs">
+        <a href="/home">Главная</a>
+        <span>/</span>
+        <a href="/manage_projects">Управление проектами</a>
+        <span>/</span>
+        <span>Создание проекта</span>
     </div>
+    <main>
+        <div class="container">
+            <h1>Создание проекта</h1>
+            <form method="POST">
+                <label for="name">Название проекта:</label>
+                <input type="text" name="name" required>
+
+                <label for="description">Описание:</label>
+                <textarea name="description" rows="4"></textarea>
+
+                <button type="submit">Создать</button>
+            </form>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>
+            <a href="https://www.flaticon.com/free-icons/projects" title="projects icons">Projects icons created by itim2101 - Flaticon</a>
+        </p>
+    </footer>
+    <script>
+        // Получаем сообщения из Flask
+        const messages = {{ get_flashed_messages(with_categories=true) | tojson | safe }};
+        if (messages.length > 0) {
+            messages.forEach(([category, message]) => {
+                alert(message); // Используем стандартное всплывающее окно
+            });
+        }
+    </script>
 </body>
 </html>

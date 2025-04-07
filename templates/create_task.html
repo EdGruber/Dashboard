@@ -7,34 +7,68 @@
     <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Создание задачи</h1>
-        <form method="POST">
-            <label for="title">Название:</label>
-            <input type="text" name="title" required>
+    <nav class="navbar">
+        <ul class="navbar-left">
+            <li class="navbarli">
+                <a href="{% if session.get('login') %}/home{% else %}#{% endif %}">
+                    <img src="../static/icons/home_icon.png" alt="Главное меню" class="navbar-icon">
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-right">
+            <li class="navbarli"><a href="/view_user">{{ session['login'] }}</a></li>
+            <li class="navbarli"><a href="/logout">Выйти</a></li>
+        </ul>
+    </nav>
 
-            <label for="description">Описание:</label>
-            <textarea name="description" rows="4"></textarea>
-
-            <label for="specialist_id">Специалист:</label>
-            <select name="specialist_id" required>
-                {% for user in users %}
-                <option value="{{ user['id'] }}">{{ user['fullname'] }}</option>
-                {% endfor %}
-            </select>
-
-            <label for="project_id">Проект:</label>
-            <select name="project_id" required>
-                {% for project in projects %}
-                <option value="{{ project['id'] }}">{{ project['name'] }}</option>
-                {% endfor %}
-            </select>
-
-            <button type="submit">Создать</button>
-        </form>
-        <a href="/manage_tasks">Назад к управлению задачами</a>
-        <a href="/home">В главное меню</a>
-        <a href="/logout">Выйти</a>
+    <div class="breadcrumbs">
+        <a href="/home">Главная</a>
+        <span>/</span>
+        <a href="/manage_tasks">Управление задачами</a>
+        <span>/</span>
+        <span>Создание задачи</span>
     </div>
+    <main>
+        <div class="container">
+            <h1>Создание задачи</h1>
+            <form method="POST">
+                <label for="title">Название:</label>
+                <input type="text" name="title" required>
+
+                <label for="description">Описание:</label>
+                <textarea name="description" rows="4"></textarea>
+
+                <label for="specialist_id">Специалист:</label>
+                <select name="specialist_id" required>
+                    {% for user in users %}
+                    <option value="{{ user['id'] }}">{{ user['fullname'] }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="project_id">Проект:</label>
+                <select name="project_id" required>
+                    {% for project in projects %}
+                    <option value="{{ project['id'] }}">{{ project['name'] }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Создать</button>
+            </form>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>
+            <a href="https://www.flaticon.com/free-icons/projects" title="projects icons">Projects icons created by itim2101 - Flaticon</a>
+        </p>
+    </footer>
+    <script>
+        // Получаем сообщения из Flask
+        const messages = {{ get_flashed_messages(with_categories=true) | tojson | safe }};
+        if (messages.length > 0) {
+            messages.forEach(([category, message]) => {
+                alert(message); // Используем стандартное всплывающее окно
+            });
+        }
+    </script>
 </body>
 </html>

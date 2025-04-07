@@ -4,43 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
-    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="../static/css/main.css">
 </head>
 <body>
 
-    <nav class="crumbs">
-        <ul>
-          <li class="crumb"><a href="/logout">Выйти</a></li>
+    <nav class="navbar">
+        <ul class="navbar-left">
+            <li class="navbarli">
+                <a href="{% if session.get('login') %}/home{% else %}#{% endif %}">
+                    <img src="../static/icons/home_icon.png" alt="Главное меню" class="navbar-icon">
+                </a>
+            </li>
         </ul>
-      </nav>
+        <ul class="navbar-right">
+            <li class="navbarli"><a href="/view_user">{{ session['login'] }}</a></li>
+            <li class="navbarli"><a href="/logout">Выйти</a></li>
+        </ul>
+    </nav>
       
-    <div class="container">
-        <h1>Добро пожаловать!</h1>
-        
-        <p>Вы вошли как {{ fullname }} - {{ position }}</p>
-
-        {% if role == 'admin' %}
-            <h2>Доступные действия:</h2>
-            <ul>
-                <li><a href="/manage_users" class = "list">Управление пользователями</a></li>
-                <li><a href="/manage_tasks" class = "list">Управление задачами</a></li>
-                <li><a href="/manage_projects" class = "list">Управление проектами</a></li>
-            </ul>
-        {% elif role == 'project_manager' %}
-            <h2>Доступные действия</h2>
-            <ul>
-                <li><a href="/manage_tasks" class = "list">Управление задачами</a></li>
-                <li><a href="/manage_projects" class = "list">Управление проектами</a></li>
-            </ul>
-        {% elif role == 'specialist' %}
-            <h2>Доступные действия:</h2>
-            <ul>
-                <li><a href="/manage_tasks" class = "list">Управление задачами</a></li>
-            </ul>
-        {% else %}
-            <p>Неизвестная роль.</p>
-        {% endif %}
-
+    <div class="breadcrumbs">
     </div>
+
+    <main>
+        <div class="container">
+            <h1>Добро пожаловать!</h1>
+            
+            <p>Вы вошли как {{ fullname }} - {{ position }}</p>
+
+            {% if role == 'admin' %}
+                <h2>Доступные действия:</h2>
+                <ul>
+                    <li><a href="/manage_users" class = "list">Управление пользователями</a></li>
+                    <li><a href="/manage_tasks" class = "list">Управление задачами</a></li>
+                    <li><a href="/manage_projects" class = "list">Управление проектами</a></li>
+                </ul>
+            {% elif role == 'project_manager' %}
+                <h2>Доступные действия</h2>
+                <ul>
+                    <li><a href="/manage_tasks" class = "list">Управление задачами</a></li>
+                    <li><a href="/manage_projects" class = "list">Управление проектами</a></li>
+                </ul>
+            {% elif role == 'specialist' %}
+                <h2>Доступные действия:</h2>
+                <ul>
+                    <li><a href="/manage_tasks" class = "list">Управление задачами</a></li>
+                </ul>
+            {% else %}
+                <p>Неизвестная роль.</p>
+            {% endif %}
+
+        </div>
+    </main>
+    <footer class="footer">
+        <p>
+            <a href="https://www.flaticon.com/free-icons/projects" title="projects icons">Projects icons created by itim2101 - Flaticon</a>
+        </p>
+    </footer>
+    <script>
+        // Получаем сообщения из Flask
+        const messages = {{ get_flashed_messages(with_categories=true) | tojson | safe }};
+        if (messages.length > 0) {
+            messages.forEach(([category, message]) => {
+                alert(message); // Используем стандартное всплывающее окно
+            });
+        }
+    </script>
 </body>
 </html>

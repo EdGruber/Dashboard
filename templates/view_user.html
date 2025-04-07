@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактирование проекта</title>
-    <link rel="stylesheet" href="../static/css/main.css">
+    <title>Просмотр пользователя</title>
+    <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
-
     <nav class="navbar">
         <ul class="navbar-left">
             <li class="navbarli">
@@ -25,35 +24,30 @@
     <div class="breadcrumbs">
         <a href="/home">Главная</a>
         <span>/</span>
-        <a href="/manage_projects">Управление проектами</a>
+        <a href="/manage_users">Управление пользователями</a>
         <span>/</span>
-        <span>Редактирование проекта №{{ project['id'] }}: {{ project['name'] }}</span>
+        <span>Пользователь №{{ user['id'] }}: {{ user['fullname'] }}</span>
     </div>
+
     <main>
         <div class="container">
-            <h1>Редактирование проекта: {{ project['name'] }}</h1>
-            
-            <form method="POST">
-                <label for="name">Название:</label>
-                <input type="text" name="name" value="{{ project['name'] }}" required>
+            <h1>Просмотр пользователя</h1>
+            <p>Имя: {{ user['fullname'] }}</p>
+            <p>Роль: {{ user['role'] }}</p>
+            <p>Должность: {{ user['position'] }}</p>
 
-                <label for="description">Описание:</label>
-                <textarea name="description" rows="4">{{ project['description'] }}</textarea>
+            <form method="POST">
+                <label for="password">Новый пароль:</label>
+                <input type="password" name="password" id="password" required>
+
+                <label for="confirm_password">Подтвердите пароль:</label>
+                <input type="password" name="confirm_password" id="confirm_password" required>
 
                 <button type="submit">Сохранить</button>
             </form>
 
-            <!-- Кнопка для удаления проекта -->
-            {% if role in ['admin', 'project_manager'] %}
-            <form method="POST" style="margin-top: 20px;">
-                <input type="hidden" name="delete" value="true">
-                <button type="submit" class="button delete-button">Удалить проект</button>
-            </form>
-            {% if error_message %}
-            <div class="error-message">
-                {{ error_message }}
-            </div>
-            {% endif %}
+            {% if message %}
+            <p>{{ message }}</p>
             {% endif %}
         </div>
     </main>
