@@ -36,11 +36,38 @@
                     <input type="text" id="searchInput" placeholder="Поиск...">
                 </div>
 
-                <div class="filter-container">
+                <div class="filter-buttons">
+                    <button id="toggleFilters" class="button">Показать фильтры</button>
+                </div>
+            </div>
+
+            <div id="filters" class="filter-container" style="display: none;">
+                <div>
+                    <label for="statusFilter">Статус:</label>
                     <select id="statusFilter" onchange="filterTable()">
-                        <option value="">Статус</option>
+                        <option value="">Все</option>
                         {% for status in statuses %}
                         <option value="{{ status['name'] }}">{{ status['name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label for="specialistFilter">Исполнитель:</label>
+                    <select id="specialistFilter" onchange="filterTable()">
+                        <option value="">Все</option>
+                        {% for user in users %}
+                        <option value="{{ user['fullname'] }}">{{ user['fullname'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label for="projectFilter">Проект:</label>
+                    <select id="projectFilter" onchange="filterTable()">
+                        <option value="">Все</option>
+                        {% for project in projects %}
+                        <option value="{{ project['name'] }}">{{ project['name'] }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -116,13 +143,17 @@
         function filterTable() {
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
             const statusFilter = document.getElementById('statusFilter').value.toLowerCase();
+            const specialistFilter = document.getElementById('specialistFilter').value.toLowerCase();
+            const projectFilter = document.getElementById('projectFilter').value.toLowerCase();
 
             filteredRows = allRows.filter(row => {
                 const cells = row.getElementsByTagName('td');
                 const matchesSearch = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(searchInput));
                 const matchesStatus = statusFilter === '' || cells[3].textContent.toLowerCase() === statusFilter;
+                const matchesSpecialist = specialistFilter === '' || cells[2].textContent.toLowerCase() === specialistFilter;
+                const matchesProject = projectFilter === '' || cells[4].textContent.toLowerCase() === projectFilter;
 
-                return matchesSearch && matchesStatus;
+                return matchesSearch && matchesStatus && matchesSpecialist && matchesProject;
             });
 
             currentPage = 1;
@@ -183,6 +214,13 @@
 
         document.getElementById('searchInput').addEventListener('input', filterTable);
         window.onload = initializeTable;
+
+        document.getElementById('toggleFilters').addEventListener('click', () => {
+            const filters = document.getElementById('filters');
+            const isVisible = filters.style.display === 'block';
+            filters.style.display = isVisible ? 'none' : 'block';
+            document.getElementById('toggleFilters').textContent = isVisible ? 'Показать фильтры' : 'Скрыть фильтры';
+        });
     </script>
 </body>
 </html>

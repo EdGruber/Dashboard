@@ -48,7 +48,7 @@
                     {% endfor %}
                 </select>
 
-                <label for="specialist_id" {% if session['role'] == 'specialist' %}hidden{% endif %}>Специалист:</label>
+                <label for="specialist_id" {% if session['role'] == 'specialist' %}hidden{% endif %}>Исполнитель:</label>
                 <select name="specialist_id" {% if session['role'] == 'specialist' %}hidden{% endif %}>
                     <option value="">Нет</option>
                     {% for user in users %}

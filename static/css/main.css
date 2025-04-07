@@ -82,21 +82,16 @@ button:hover {
 }
 
 .button {
-    padding: 12px;
-    margin: auto;
-    padding: auto;
-    margin-top: 20px;
+    padding: 10px 20px;
     background-color: #5cb85c;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .button:hover {
     background-color: #4cae4c;
-    color: white;
 }
 
 table {
@@ -311,16 +306,17 @@ main {
 }
 
 .search-container {
-    margin-bottom: 20px;
+    flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .search-container input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
 }
 
 .search-container button {
@@ -363,10 +359,20 @@ main {
 }
 
 .filter-container {
-    margin-bottom: 20px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.filter-container div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .filter-container label {
@@ -380,6 +386,10 @@ main {
     max-width: 200px;
 }
 
+#toggleFilters{
+    margin-top: 0;
+}
+
 .search-container, .filter-container {
     display: flex;
     align-items: center;
@@ -388,10 +398,28 @@ main {
 
 .search-filter-wrapper {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 20px; /* Отступ между элементами */
+    justify-content: flex-start; /* Расположить элементы рядом */
     margin-bottom: 20px;
+}
+
+.filter-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.search-filter-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
 .search-container input {
@@ -399,9 +427,10 @@ main {
     border: 1px solid #ccc;
     border-radius: 5px;
     max-width: 300px;
+    width: 100%;
 }
 
-.filter-container select {
+filter-container select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;

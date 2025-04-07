@@ -38,7 +38,7 @@
                 <label for="description">Описание:</label>
                 <textarea name="description" rows="4"></textarea>
 
-                <label for="specialist_id">Специалист:</label>
+                <label for="specialist_id">Исполнитель:</label>
                 <select name="specialist_id" required>
                     {% for user in users %}
                     <option value="{{ user['id'] }}">{{ user['fullname'] }}</option>
