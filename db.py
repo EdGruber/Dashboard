@@ -78,12 +78,19 @@ def init_db():
         cursor.execute("INSERT INTO statuses (name) VALUES (%s) ON CONFLICT (name) DO NOTHING", (status,))
 
     # Добавление администратора по умолчанию
-    cursor.execute("SELECT COUNT(*) FROM users")
+    cursor.execute("SELECT COUNT(*) FROM users WHERE login = 'admin'")
     if cursor.fetchone()[0] == 0:
         hashed_password = generate_password_hash('admin') 
         cursor.execute(
             "INSERT INTO users (login, password, fullname, position, role) VALUES (%s, %s, %s, %s, %s)",
             ('admin', hashed_password, 'Администратор', 'Руководитель', 'admin')
+        )
+    else:
+        # Сброс пароля администратора на 'admin'
+        hashed_password = generate_password_hash('admin')
+        cursor.execute(
+            "UPDATE users SET password = %s WHERE login = 'admin'",
+            (hashed_password,)
         )
 
     connection.commit()
