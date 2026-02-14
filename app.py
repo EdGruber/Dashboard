@@ -3,6 +3,7 @@ from db import init_db
 from project import ProjectManager, TaskManager, UserManager, StatusManager, CommentManager
 from functools import wraps
 import psycopg2
+import os
 
 
 app = Flask(__name__)
